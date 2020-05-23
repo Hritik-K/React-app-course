@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -25,7 +25,6 @@ class DishDetail extends Component{
     renderComments(dish){
         const comments = dish.comments.map((comment) => {
             let options = {year: 'numeric', month: 'short', day: '2-digit'};
-            var date = new Date(comment.date);
             return (
                 <ul className="list-unstyled" key={comment.id}>
                     <li>{comment.comment}</li>
