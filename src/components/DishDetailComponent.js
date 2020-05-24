@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
