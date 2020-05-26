@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Link} from 'react-router-dom';
 
     function RenderDish({dish}) {
         return (
@@ -16,8 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         );
     }
 
-    function RenderComments({dish}){
-        const comments = dish.comments.map((comment) => {
+    function RenderComments({comments}){
+        const commentsToRender = comments.map((comment) => {
             let options = {year: 'numeric', month: 'short', day: '2-digit'};
             return (
                 <ul className="list-unstyled" key={comment.id}>
@@ -30,21 +31,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         return (
             <div className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
-                {comments}
+                {commentsToRender}
             </div>
         );
     }
 
     const DishDetail = (props) => {
-        const dish = props.selectedDish;
-
+        const dish = props.dish;
+        const comments = props.comments;
         if (dish != null){
             return (
                 <div className="container">
-                    <div className="row">
-                        <RenderDish dish={dish}/>
-                        <RenderComments dish={dish}/>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{dish.name}</h3>
+                        <hr></hr>
                     </div>
+                        <div className="row">
+                            <RenderDish dish={dish}/>
+                            <RenderComments comments={comments}/>
+                        </div>
                 </div>
             );
         } else {
