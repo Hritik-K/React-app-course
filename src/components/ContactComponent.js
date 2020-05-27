@@ -125,7 +125,7 @@ class Contact extends Component {
                     <div className="col-12 col-md-9">
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup row>
-                                <Label htmlfor="firstname" md={2}>First Name</Label>
+                                <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Input 
                                         type="text" id="firstname" 
@@ -140,7 +140,7 @@ class Contact extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label htmlfor="lastname" md={2}>Last Name</Label>
+                                <Label htmlFor="lastname" md={2}>Last Name</Label>
                                 <Col md={10}>
                                     <Input 
                                         type="text" 
@@ -156,7 +156,7 @@ class Contact extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label htmlfor="telnum" md={2}>Contact Tel.</Label>
+                                <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
                                     <Input 
                                         type="tel" 
@@ -172,7 +172,7 @@ class Contact extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label htmlfor="email" md={2}>Email</Label>
+                                <Label htmlFor="email" md={2}>Email</Label>
                                 <Col md={10}>
                                     <Input 
                                         type="email" 
@@ -201,14 +201,18 @@ class Contact extends Component {
                                     </FormGroup>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
-                                    <Input type="select" name="contactType" value={this.state.contactType} onChange={this.handleInputChange}>
+                                    <Input 
+                                        type="select" 
+                                        name="contactType" 
+                                        value={this.state.contactType} 
+                                        onChange={this.handleInputChange}>
                                         <option>Tel.</option>
                                         <option>Email</option>
                                     </Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label htmlfor="feedback" md={2}>Your Feedback</Label>
+                                <Label htmlFor="feedback" md={2}>Your Feedback</Label>
                                 <Col md={10}>
                                     <Input type="textarea" id="message" name="message" rows="10" value={this.state.message} onChange={this.handleInputChange}/>
                                 </Col>
