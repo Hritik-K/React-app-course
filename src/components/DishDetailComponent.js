@@ -38,12 +38,12 @@ class CommentForm extends Component {
                     <LocalForm className="container">
                         <Row className="form-group">
                             <Label htmlFor="rating">Rating</Label>
-                            <Control.select model=".rating" className="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <Control.select model=".rating" className="form-control" defaultValue = "5">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
                             </Control.select>
                         </Row>
                         <Row className="form-group">
