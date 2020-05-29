@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Label } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Loading} from './LoadingComponent'
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -19,15 +20,18 @@ class CommentForm extends Component {
         
         this.toggleCommentForm = this.toggleCommentForm.bind(this);
     }
+    
+    handleSubmit(values){
+        this.toggleCommentForm();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+    }
 
     toggleCommentForm() {
         this.setState({
             isModalOpen: !this.state.isModalOpen
         });
     }
-    
-    
-    
+
     render(){
         return(
             <>
@@ -35,7 +39,7 @@ class CommentForm extends Component {
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleCommentForm}>
                 <ModalHeader toggle={this.toggleCommentForm}><strong>Submit Comment</strong></ModalHeader>
                 <ModalBody>
-                    <LocalForm className="container">
+                    <LocalForm onSubmit={(values) => this.handleSubmit(values)} className="container">
                         <Row className="form-group">
                             <Label htmlFor="rating">Rating</Label>
                             <Control.select model=".rating" className="form-control" defaultValue = "5">
@@ -84,7 +88,7 @@ function RenderDish({dish}) {
     );
 }
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}){
     const commentsToRender = comments.map((comment) => {
         let options = {year: 'numeric', month: 'short', day: '2-digit'};
         return (
@@ -99,7 +103,7 @@ function RenderComments({comments}){
         <div className="col-12 col-md-5 m-1">
             <h4>Comments</h4>
             {commentsToRender}
-            <CommentForm/>
+            <CommentForm dishId={dishId} addComment={addComment}/>
         </div>
     );
 }
@@ -107,7 +111,25 @@ function RenderComments({comments}){
 const DishDetail = (props) => {
     const dish = props.dish;
     const comments = props.comments;
-    if (dish != null){
+    if (props.isLoading){
+        return(
+            <div className="container">
+                <div className="row">
+                    <Loading/>
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess){
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>>
+                </div>
+            </div>
+        );
+    }
+    else if (dish != null){
         return (
             <div className="container">
                 <Breadcrumb>
@@ -121,7 +143,7 @@ const DishDetail = (props) => {
                 </div>
                     <div className="row">
                         <RenderDish dish={dish}/>
-                        <RenderComments comments={comments}/>
+                        <RenderComments comments={comments} addComment={props.addComment} dishId={props.dish.id}/>
                     </div>
             </div>
         );
@@ -129,6 +151,5 @@ const DishDetail = (props) => {
         return (<div/>);
     }
 }
-
 
 export default DishDetail;
